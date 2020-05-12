@@ -1,0 +1,55 @@
+<style>
+  body {
+    background: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 1.25em;
+    text-align: center;
+    padding: .4em 0 .4em 0;
+  }
+  button {
+    padding: 10px;
+    font-size: .7em;
+    border: 0;
+    border-radius: .4em;
+    color: white;
+    margin: .2em;
+  }
+  input {
+    width: 60px;
+    padding: 3px;
+  }
+  p {
+    font-size: .8em;
+  }
+</style>
+<h1>Chaos Box</h1>
+<p>Max size &#8804;10,000 px <input id="max" value="500" type="number"></p>
+<button
+  id="cancel"
+  style="background-color: darkslategray;">
+  Exit
+</button>
+<button
+  id="create"
+  style="background:linear-gradient(darkorange, darkgreen, darkcyan, darkblue, darkviolet);
+        font-weight:bold">
+  MAKE
+</button>
+<script>
+
+document.getElementById('create').onclick = () => {
+  let textbox = document.getElementById('max');
+  let max = parseInt(textbox.value, 10);
+  if (max > 10000) {
+    textbox.value = 10000;
+    max = 10000;
+  }
+  parent.postMessage({ pluginMessage: { type: 'create-rectangle', max } }, '*')
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+</script>
